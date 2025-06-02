@@ -18,7 +18,7 @@
     - cp .env.example .env
 
     # 5. Desplegar solución completa
-    - docker composer up --build
+    - docker compose up --build
 
 **Consideraciones Test (Pruebas Unitarias y de Integración)
 
