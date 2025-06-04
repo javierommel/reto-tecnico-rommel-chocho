@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,8 +32,8 @@ public class CuentaController {
     public ResponseEntity<ResponseDto> createCuenta(@Valid @RequestBody CuentaDto cuentaDto) {
         cuentaService.createCuenta(cuentaDto);
         return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(new ResponseDto(CuentaConstants.STATUS_201, CuentaConstants.MESSAGE_201));
+            .status(HttpStatus.CREATED)
+            .body(new ResponseDto(CuentaConstants.STATUS_201, CuentaConstants.MESSAGE_201));
 
     }
 
@@ -49,30 +48,28 @@ public class CuentaController {
         return ResponseEntity.status(HttpStatus.OK).body(cuentaDto);
     }
 
-    @PutMapping("/{numeroCuenta}")
-    public ResponseEntity<ResponseDto> updateCuenta(
-            @PathVariable Long numeroCuenta,
-            @Valid @RequestBody CuentaDto cuentaDto) {
-        boolean isUpdated = cuentaService.updateCuenta(numeroCuenta, cuentaDto);
-        if (isUpdated) {
+    @PutMapping
+    public ResponseEntity<ResponseDto> updateCuenta(@Valid @RequestBody CuentaDto cuentaDto) {
+        boolean isUpdated = cuentaService.updateCuenta(cuentaDto);
+        if(isUpdated) {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new ResponseDto(CuentaConstants.STATUS_200, CuentaConstants.MESSAGE_200));
-        } else {
+        }else{
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(CuentaConstants.STATUS_417, CuentaConstants.MESSAGE_417_UPDATE));
         }
     }
 
-    @DeleteMapping("/{numeroCuenta}")
-    public ResponseEntity<ResponseDto> deleteCuenta(@PathVariable Long numeroCuenta) {
+    @DeleteMapping
+    public ResponseEntity<ResponseDto> deleteCuenta(@RequestParam Long numeroCuenta) {
         boolean isDeleted = cuentaService.deleteCuenta(numeroCuenta);
-        if (isDeleted) {
+        if(isDeleted) {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new ResponseDto(CuentaConstants.STATUS_200, CuentaConstants.MESSAGE_200));
-        } else {
+        }else{
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(CuentaConstants.STATUS_417, CuentaConstants.MESSAGE_417_DELETE));

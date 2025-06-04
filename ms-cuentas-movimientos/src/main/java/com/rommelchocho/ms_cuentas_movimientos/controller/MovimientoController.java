@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,15 +25,16 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Validated
 public class MovimientoController {
-
+    
+    
     private MovimientoService movimientoService;
 
     @PostMapping
     public ResponseEntity<ResponseDto> createMovimiento(@RequestBody MovimientoDto movimientoDto) {
         movimientoService.createMovimiento(movimientoDto);
         return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(new ResponseDto(MovimientoConstants.STATUS_201, MovimientoConstants.MESSAGE_201));
+            .status(HttpStatus.CREATED)
+            .body(new ResponseDto(MovimientoConstants.STATUS_201, MovimientoConstants.MESSAGE_201));
     }
 
     @GetMapping
@@ -48,30 +48,28 @@ public class MovimientoController {
         return ResponseEntity.status(HttpStatus.OK).body(movimientoDto);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ResponseDto> updateMovimiento(
-            @PathVariable Long id,
-            @Valid @RequestBody MovimientoDto movimientoDto) {
-        boolean isUpdated = movimientoService.updateMovimiento(id, movimientoDto);
-        if (isUpdated) {
+    @PutMapping
+    public ResponseEntity<ResponseDto> updateMovimiento(@Valid @RequestBody MovimientoDto movimientoDto) {
+        boolean isUpdated = movimientoService.updateMovimiento(movimientoDto);
+        if(isUpdated) {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new ResponseDto(MovimientoConstants.STATUS_200, MovimientoConstants.MESSAGE_200));
-        } else {
+        }else{
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(MovimientoConstants.STATUS_417, MovimientoConstants.MESSAGE_417_UPDATE));
         }
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<ResponseDto> deleteMovimiento(@PathVariable Long id) {
+    @DeleteMapping
+    public ResponseEntity<ResponseDto> deleteMovimiento(@RequestParam Long id) {
         boolean isDeleted = movimientoService.deleteMovimiento(id);
-        if (isDeleted) {
+        if(isDeleted) {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new ResponseDto(MovimientoConstants.STATUS_200, MovimientoConstants.MESSAGE_200));
-        } else {
+        }else{
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(MovimientoConstants.STATUS_417, MovimientoConstants.MESSAGE_417_DELETE));

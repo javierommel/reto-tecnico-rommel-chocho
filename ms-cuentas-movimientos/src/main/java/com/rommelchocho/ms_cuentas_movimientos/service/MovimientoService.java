@@ -11,7 +11,7 @@ public interface MovimientoService {
 
     MovimientoDto getMovimientoById(Long id);
 
-    boolean updateMovimiento(Long id, MovimientoDto movimientoDto);
+    boolean updateMovimiento(MovimientoDto movimientoDto);
 
     boolean deleteMovimiento(Long id);
 }

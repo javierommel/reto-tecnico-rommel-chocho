@@ -50,11 +50,11 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.OK).body(clienteDto);
     }
 
-    @PutMapping("/{clienteId}")
+    @PutMapping("/{telefono}")
     public ResponseEntity<?> updateCliente(
-            @PathVariable Long clienteId,
+            @PathVariable @Pattern(regexp = "(^$|[0-9]{10})", message = "Telefono debe contener 10 dígitos") String telefono,
             @Valid @RequestBody ClienteDto clienteDto) {
-        boolean isUpdated = clienteService.updateCliente(clienteId, clienteDto);
+        boolean isUpdated = clienteService.updateCliente(clienteDto);
         if (isUpdated) {
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -66,10 +66,10 @@ public class ClienteController {
         }
     }
 
-    @DeleteMapping("/{clienteId}")
+    @DeleteMapping("/{telefono}")
     public ResponseEntity<ResponseDto> deleteCliente(
-            @PathVariable Long clienteId) {
-        boolean isDeleted = clienteService.deleteCliente(clienteId);
+            @PathVariable @Pattern(regexp = "(^$|[0-9]{10})", message = "Telefono debe contener 10 dígitos") String telefono) {
+        boolean isDeleted = clienteService.deleteCliente(telefono);
         if (isDeleted) {
             return ResponseEntity
                     .status(HttpStatus.OK)

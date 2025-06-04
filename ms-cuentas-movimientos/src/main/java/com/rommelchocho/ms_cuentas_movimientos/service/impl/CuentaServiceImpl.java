@@ -52,10 +52,10 @@ public class CuentaServiceImpl implements CuentaService {
     }
 
     @Override
-    public boolean updateCuenta(Long numeroCuenta, CuentaDto cuentaDto) {
+    public boolean updateCuenta(CuentaDto cuentaDto) {
         boolean isUpdated = false;
-        Cuenta cuenta = cuentaRepository.findByNumeroCuenta(numeroCuenta).orElseThrow(
-                () -> new ResourceNotFoundException("Cliente", "numeroCuenta", numeroCuenta.toString()));
+        Cuenta cuenta = cuentaRepository.findByNumeroCuenta(cuentaDto.getNumeroCuenta()).orElseThrow(
+                () -> new ResourceNotFoundException("Cliente", "telefono", cuentaDto.getNumeroCuenta().toString()));
         CuentaMapper.mapToCuenta(cuentaDto, cuenta);
         cuenta = cuentaRepository.save(cuenta);
         return isUpdated;
