@@ -111,6 +111,74 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "update cliente3",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contrasena\": \"1234\",\n    \"estado\": true,\n    \"nombre\": \"Jose Lema Nuevo\",\n    \"genero\": \"Masculino\",\n    \"edad\": 30,\n    \"identificacion\": \"098254785\",\n    \"direccion\": \"Otavalo sn y principal\",\n    \"telefono\": \"0982547850\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/clientes/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"clientes",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete cliente3",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numeroCuenta\":\"585545\",\n    \"tipoMovimiento\":\"Retiro\",\n    \"valor\":-575\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/clientes/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"clientes",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByTelefono",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/clientes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -404,7 +472,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8082/reportes?fechaInicio=2025-06-02&fechaFin=2025-06-02&clienteId=2",
+							"raw": "http://localhost:8082/reportes?fechaInicio=2025-06-05&fechaFin=2025-06-05&clienteId=2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -416,11 +484,11 @@
 							"query": [
 								{
 									"key": "fechaInicio",
-									"value": "2025-06-02"
+									"value": "2025-06-05"
 								},
 								{
 									"key": "fechaFin",
-									"value": "2025-06-02"
+									"value": "2025-06-05"
 								},
 								{
 									"key": "clienteId",
