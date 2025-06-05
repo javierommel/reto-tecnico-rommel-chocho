@@ -17,9 +17,9 @@ public class RetiroStrategy implements MovimientoStrategy{
     }
 
     @Override
-    public void validar(Double saldoActual, Double valorMovimiento) {
+    public void validar(Double saldoActual, Double valorMovimiento, Long numeroCuenta) {
         if (saldoActual < Math.abs(valorMovimiento)) {
-            throw new SaldoInsuficienteException("Saldo insuficiente para realizar el retiro");
+            throw new SaldoInsuficienteException(numeroCuenta.toString());
         }
     }
 }

@@ -38,14 +38,8 @@ public class MovimientoServiceImpl implements MovimientoService {
                 .orElse(cuenta.getSaldoInicial());
 
         MovimientoStrategy strategy = movimientoStrategyFactory.getStrategy(movimientoDto.getTipoMovimiento());
-        strategy.validar(saldoDisponible, movimientoDto.getValor());
+        strategy.validar(saldoDisponible, movimientoDto.getValor(),cuenta.getNumeroCuenta());
         Double nuevoSaldoDisponible = strategy.calcularNuevoSaldo(saldoDisponible, movimientoDto.getValor());
-
-
-        /*if ("Retiro".equalsIgnoreCase(movimientoDto.getTipoMovimiento()) && saldoDisponible + movimientoDto.getValor() < 0) {
-            throw new SaldoInsuficienteException(cuenta.getNumeroCuenta().toString());
-        }
-        Double nuevoSaldoDisponible = saldoDisponible + movimientoDto.getValor();*/
 
         Movimiento movimiento=MovimientoMapper.mapToMovimiento(movimientoDto,new Movimiento());
         movimiento.setFecha(LocalDate.now());
@@ -69,14 +63,13 @@ public class MovimientoServiceImpl implements MovimientoService {
     }
 
     @Override
-    public boolean updateMovimiento(MovimientoDto movimientoDto) {
-        boolean isUpdated = false;
-        Movimiento movimiento=movimientoRepository.findById(movimientoDto.getId()).orElseThrow(
-                () -> new ResourceNotFoundException("Movimiento", "id", movimientoDto.getId().toString())
+    public boolean updateMovimiento(Long id, MovimientoDto movimientoDto) {
+        Movimiento movimiento=movimientoRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Movimiento", "id", id.toString())
         );
         MovimientoMapper.mapToMovimiento(movimientoDto, movimiento);
         movimiento = movimientoRepository.save(movimiento);
-        return isUpdated;
+        return movimiento!=null;
     }
 
     @Override

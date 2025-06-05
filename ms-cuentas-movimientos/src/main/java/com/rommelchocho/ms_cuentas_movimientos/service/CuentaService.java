@@ -12,7 +12,7 @@ public interface CuentaService {
 
     CuentaDto getCuentaByNumeroCuenta(Long numeroCuenta);
 
-    boolean updateCuenta(CuentaDto cuentaDto);
+    boolean updateCuenta(Long numeroCuenta, CuentaDto cuentaDto);
 
     boolean deleteCuenta(Long numeroCuenta);
 }

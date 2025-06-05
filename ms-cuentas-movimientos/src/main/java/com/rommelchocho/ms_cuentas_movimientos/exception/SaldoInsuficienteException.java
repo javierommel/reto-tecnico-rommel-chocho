@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class SaldoInsuficienteException extends RuntimeException {
 
     public SaldoInsuficienteException(String numeroCuenta) {
-        super(String.format("Error movimiento: %s",numeroCuenta));
+        super(String.format("Saldo no disponible para cuenta: %s",numeroCuenta));
     }
 }

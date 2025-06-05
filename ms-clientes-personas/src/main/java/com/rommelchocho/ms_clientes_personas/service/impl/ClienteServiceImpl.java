@@ -54,22 +54,21 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     @Transactional
-    public boolean updateCliente(ClienteDto clienteDto) {
-        boolean isUpdated = false;
-        Cliente cliente = clienteRepository.findByTelefono(clienteDto.getTelefono()).orElseThrow(
-                () -> new ResourceNotFoundException("Cliente", "telefono", clienteDto.getTelefono().toString()));
+    public boolean updateCliente(Long clienteId, ClienteDto clienteDto) {
+        Cliente cliente = clienteRepository.findById(clienteId).orElseThrow(
+                () -> new ResourceNotFoundException("Cliente", "clienteId", clienteId.toString()));
         ClienteMapper.mapToCliente(clienteDto, cliente);
         cliente.setContrasena(passwordEncoder.encode(clienteDto.getContrasena()));
         cliente = clienteRepository.save(cliente);
         clienteSyncProducer.enviarActualizacionCliente(cliente.getClienteId(),
                 cliente.getNombre());
-        return isUpdated;
+        return cliente!=null;
     }
 
     @Override
-    public boolean deleteCliente(String telefono) {
-        Cliente clienteAsync = clienteRepository.findByTelefono(telefono).orElseThrow(
-                () -> new ResourceNotFoundException("Cliente", "telefono", telefono));
+    public boolean deleteCliente(Long clienteId) {
+        Cliente clienteAsync = clienteRepository.findById(clienteId).orElseThrow(
+                () -> new ResourceNotFoundException("Cliente", "clienteId", clienteId.toString()));
         clienteRepository.deleteById(clienteAsync.getClienteId());
         clienteSyncProducer.enviarEliminacionCliente(clienteAsync.getClienteId());
         return true;

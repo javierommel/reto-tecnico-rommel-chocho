@@ -12,9 +12,9 @@ public interface ClienteService {
 
     ClienteDto getClienteByTelefono(String telefono);
 
-    boolean updateCliente(ClienteDto clienteDto);
+    boolean updateCliente(Long clienteId, ClienteDto clienteDto);
 
-    boolean deleteCliente(String telefono);
+    boolean deleteCliente(Long clienteId);
 
     Boolean existeCliente(Long clienteId);
 }

@@ -15,7 +15,7 @@ public class DepositoStrategy implements MovimientoStrategy{
     }
 
     @Override
-    public void validar(Double saldoActual, Double valorMovimiento) {
+    public void validar(Double saldoActual, Double valorMovimiento, Long numeroCuenta) {
         // No se requiere validación especial
     }
 }
