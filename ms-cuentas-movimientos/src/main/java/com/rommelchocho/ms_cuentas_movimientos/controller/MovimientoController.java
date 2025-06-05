@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.rommelchocho.ms_cuentas_movimientos.dto.MovimientoDto;
 import com.rommelchocho.ms_cuentas_movimientos.dto.ResponseDto;
@@ -43,7 +42,7 @@ public class MovimientoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovimientoDto> getMovimientoById(@RequestParam Long id) {
+    public ResponseEntity<MovimientoDto> getMovimientoById(@PathVariable Long id) {
         MovimientoDto movimientoDto = movimientoService.getMovimientoById(id);
         return ResponseEntity.status(HttpStatus.OK).body(movimientoDto);
     }

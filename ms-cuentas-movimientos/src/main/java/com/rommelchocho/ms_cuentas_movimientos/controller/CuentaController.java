@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.rommelchocho.ms_cuentas_movimientos.dto.CuentaDto;
 import com.rommelchocho.ms_cuentas_movimientos.dto.ResponseDto;
@@ -44,7 +43,7 @@ public class CuentaController {
     }
 
     @GetMapping("/{numeroCuenta}")
-    public ResponseEntity<CuentaDto> getCuentaById(@RequestParam Long numeroCuenta) {
+    public ResponseEntity<CuentaDto> getCuentaById(@PathVariable Long numeroCuenta) {
         CuentaDto cuentaDto = cuentaService.getCuentaByNumeroCuenta(numeroCuenta);
         return ResponseEntity.status(HttpStatus.OK).body(cuentaDto);
     }
